@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+const pageTitle = "About Page";
+
+const identity = {
+  firstName: "Sarah",
+  country: "Canada",
+  occupation: "Technical Writer",
+  hobbies: ["photography", "birdwatching", "baseball"],
+};
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+
+const skillColor = "white";
+---
+
+<Layout title={pageTitle}>
+  <main class="text-white pl-20">
+    <ul>
+      <li class="text-4xl text-pink-500">My name is {identity.firstName}</li>
+      <li class="text-xl">
+        I have lived in {identity.country} for the past 8 years
+      </li>
+      <li class="xl">I work as a {identity.occupation}</li>
+      {
+        identity.hobbies.length >= 2 && (
+          <li>Two of my hobbies are {identity.hobbies[0]} and</li>
+        )
+      }
+
+      <p>My skills include</p>
+      {
+        skills.map((skill) => (
+          <div class="text-sm ml-4 skill">
+            <li class="list-inside list-disc">{skill}</li>
+          </div>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style define:vars={{ skillColor }}>
+  .skill {
+    color: var(--skillColor);
+  }
+</style>
