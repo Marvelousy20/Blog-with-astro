@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <div class="flex space-x-10 mb-4 p-6 text-white text-2xl">
+    <div className="flex space-x-10 mb-4 p-6 text-white text-2xl">
       <div>
         <a href="/" class="inline">
           Home

@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BlogPost from "../../components/Blogpost.astro";
+
+export async function getStaticPaths() {
+  const allPost = await Astro.glob("../../pages/posts/*.md");
+
+  const uniqueTags = [
+    ...new Set(allPost.map((post) => post.frontmatter.tags).flat()),
+  ];
+
+  return [
+    { params: { tag: "astro" }, props: { posts: allPost } },
+    { params: { tag: "successes" }, props: { posts: allPost } },
+    { params: { tag: "community" }, props: { posts: allPost } },
+    { params: { tag: "blogging" }, props: { posts: allPost } },
+    { params: { tag: "setbacks" }, props: { posts: allPost } },
+    { params: { tag: "learning in public" }, props: { posts: allPost } },
+  ];
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const filteredPosts = posts.filter((post) =>
+  post.frontmatter.tags?.includes(tag)
+);
+---
+
+<Layout title={tag}>
+  <div class="text-white flex px-20 gap-6">
+    {
+      filteredPosts.map((post) => (
+        <BlogPost
+          url={post.url}
+          title={post.frontmatter.title}
+          author={post.frontmatter.author}
+        />
+      ))
+    }
+  </div>
+</Layout>

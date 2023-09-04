@@ -1,28 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Blogpost from "../components/Blogpost.astro";
+
+// get md files which is going to have a url by defualt
+const allPosts = await Astro.glob("../pages/posts/*.md");
 const pageTitle = "Astro learning page";
 ---
 
 <Layout title={pageTitle}>
-  <main class="text-white text-2xl">
+  <main class="text-white text-2xl px-8">
     <h3>This is the blog page</h3>
 
     <p>You can find my posts here</p>
 
     <div class="mt-12">
       <ul class="flex space-x-4 text-center">
-        <li class="w-40 border cursor-pointer shadow-md py-4">
-          <a href="/posts/post-1">Post 1</a>
-        </li>
-        <li class="w-40 border cursor-pointer shadow-md py-4">
-          <a href="/posts/post-2">Post 2</a>
-        </li>
-        <li class="w-40 border cursor-pointer shadow-md py-4">
-          <a href="/posts/post-3">Post 3</a>
-        </li>
-        <li class="w-40 border cursor-pointer shadow-md py-4">
-          <a href="/posts/post 4">Post 4</a>
-        </li>
+        {
+          allPosts.map((post) => (
+            <Blogpost
+              url={post.url}
+              title={post.frontmatter.title}
+              author={post.frontmatter.author}
+            />
+          ))
+        }
       </ul>
     </div>
   </main>
